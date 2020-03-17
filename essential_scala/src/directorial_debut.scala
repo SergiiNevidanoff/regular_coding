@@ -5,9 +5,19 @@ class Director(val firstName:String,
      def name = firstName + " " + lastName
 }
 
-class Film(val name:String, yearOfRelease:Int,
-imdbRating:Double,
-director:Director){
+object Director{
+
+   def apply(firstName:String,
+             lastName:String,
+             yearOfBirth:Int) = new Director(firstName, lastName, yearOfBirth)
+
+   def older(first:Director, second:Director) = if (first.yearOfBirth > second.yearOfBirth) first else second
+
+}
+
+class Film(val name:String,val yearOfRelease:Int,
+val imdbRating:Double,
+val director:Director){
   
     def directorsAge = yearOfRelease - director.yearOfBirth
 
@@ -16,6 +26,18 @@ director:Director){
     def copy(name:String, yearOfRelease:Int,
 imdbRating:Double, director:Director) = new Film(name, yearOfRelease, imdbRating, director)
 }
+
+object Film{
+
+   def apply(name:String, yearOfRelease:Int, imdbRating:Double, director:Director) =
+      new Film(name, yearOfRelease, imdbRating, director)
+
+   def highestRating(first:Film, second:Film) = if (first.imdbRating > second.imdbRating) first else second
+
+   def olderDirector(first:Film, second:Film) = if (first.director.directorsAge > 
+     second.director.directorsAge) first else second
+}
+
 
 val eastwood         = new Director("Clint", "Eastwood", 1930)
 val mcTiernan         = new Director("John", "McTiernan", 1951)
