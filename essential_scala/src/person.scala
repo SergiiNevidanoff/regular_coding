@@ -1,21 +1,14 @@
-class Person(first:String, last:String){
-val firstName = first
-val lastName = last
-def name = firstName + " " + lastName
+class Person(val first: String, val last: String) {
+  def name: String = first + " " + last
 }
 
-object Person{
+object Person {
 
-  def apply(fullName:String) = fullName.map(full -> {
-    val parts = full.split(" ")
-    new Person(full(0), full(1)
+  def apply(fullName: String): Person = fullName.split("\\s") match {
+    case Array(firstName, lastName) => new Person(firstName, lastName)
+    case _ => new Person("", "")
   }
 
 }
 
-class PersonShort(val firstName:String, val lastName:String){
-  def name = firstName + " " + lastName
-}
-
-
-val dave = new Person("Dave","Gurnell")
+val dave = new Person("Dave", "Gurnell")
